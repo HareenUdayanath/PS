@@ -12,18 +12,13 @@ import processsimulator.ReadyQueue;
 import processsimulator.Schedular;
 
 
-/**
- *
- * @author Asus
- */
-public class SimulatorInterface extends javax.swing.JFrame {
 
-    /**
-     * Creates new form SimulatorInterface
-     */
+public class SimulatorInterface extends javax.swing.JFrame {//this is the jframe class to processs simulator interface
+
+   
     
     private int noOfProcessers;  
-    private Schedular schdular;
+    private Schedular shedular;
     public static Chart proRepTable;
     public static Chart queueRep;
     private int [] xPositions={51,95,140,184,228,273,318,363,406,451,496,540,585,629,673,718,763,807,852,896};
@@ -51,7 +46,7 @@ public class SimulatorInterface extends javax.swing.JFrame {
         proRepTable = new Chart();
         proRepTable.setBounds(10,20, 950,300);         
         this.sPanel.add(proRepTable);        
-        //c.drawScreen();
+       
     }
     
     private void setQueueRep(){
@@ -152,7 +147,8 @@ public class SimulatorInterface extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("pTime");
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("Process Time");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -176,8 +172,8 @@ public class SimulatorInterface extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(addBut, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -188,11 +184,10 @@ public class SimulatorInterface extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(addBut)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addBut)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nextBut)
@@ -341,8 +336,8 @@ public class SimulatorInterface extends javax.swing.JFrame {
     private void nextButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButActionPerformed
         if(i<20)
             if(this.methodNo==0){
-                AProcess next = this.schdular.firstComeFirstServe();
-                ReadyQueue ready = schdular.getReadyQueue();
+                AProcess next = this.shedular.firstComeFirstServe();
+                ReadyQueue ready = shedular.getReadyQueue();
                 if(next.getProcessWaitTime()>0){
                     i+= next.getProcessWaitTime();
                     next.setProcessWaitTime(0);
@@ -355,44 +350,44 @@ public class SimulatorInterface extends javax.swing.JFrame {
                 }            
             }else if(this.methodNo==1){
                 System.out.println("rr");
-                AProcess next = this.schdular.roundRobin();
-                ReadyQueue ready = schdular.getReadyQueue();
+                AProcess next = this.shedular.roundRobin();
+                ReadyQueue ready = shedular.getReadyQueue();
                 System.out.println("fdgfd" +next.getArrivalTime());
                 if(i<next.getArrivalTime())
                     i = next.getArrivalTime();
                 drawReadyQueue(ready);                       
                 if(next.getServiceTime()-next.getExcutedTime()>0){
-                    for(int n=0;n<this.schdular.getpTime();n++){                        
+                    for(int n=0;n<this.shedular.getpTime();n++){                        
                         SimulatorInterface.proRepTable.rect(this.xPositions[i],this.yPositions[proNumber(next.getName())], "QQ");
                         i++;         
                     }
                 }else{
-                    for(int n=0;n<(next.getServiceTime()-next.getExcutedTime()+this.schdular.getpTime());n++){
+                    for(int n=0;n<(next.getServiceTime()-next.getExcutedTime()+this.shedular.getpTime());n++){
                         SimulatorInterface.proRepTable.rect(this.xPositions[i],this.yPositions[proNumber(next.getName())], "QQ");
                         i++;         
                     }
                 }
 
             }else if(this.methodNo==3){
-                AProcess next = this.schdular.hrrnPree();
-                ReadyQueue ready = schdular.getReadyQueue();
+                AProcess next = this.shedular.hrrnPree();
+                ReadyQueue ready = shedular.getReadyQueue();
 
                 drawReadyQueue(ready);  
                 if(next.getServiceTime()-next.getExcutedTime()>0){
-                     for(int n=0;n<this.schdular.getpTime();n++){                         
+                     for(int n=0;n<this.shedular.getpTime();n++){                         
                          SimulatorInterface.proRepTable.rect(this.xPositions[i],this.yPositions[proNumber(next.getName())], "QQ");
                          i++;         
                      }
                 }else{
-                    for(int n=0;n<(next.getServiceTime()-next.getExcutedTime()+this.schdular.getpTime());n++){
+                    for(int n=0;n<(next.getServiceTime()-next.getExcutedTime()+this.shedular.getpTime());n++){
                         SimulatorInterface.proRepTable.rect(this.xPositions[i],this.yPositions[proNumber(next.getName())], "QQ");
                         i++;         
                     }
                 }
                  
             }else{
-                AProcess next = this.schdular.hrrn();
-                ReadyQueue ready = schdular.getReadyQueue();
+                AProcess next = this.shedular.hrrn();
+                ReadyQueue ready = shedular.getReadyQueue();
                 if(i<next.getArrivalTime())
                     i = next.getArrivalTime();
                 drawReadyQueue(ready);    
@@ -401,7 +396,7 @@ public class SimulatorInterface extends javax.swing.JFrame {
                     i++;         
                 }
             }           
-            this.TPUT.setText(String.valueOf(this.schdular.getThroughput()));
+            this.TPUT.setText(String.valueOf(this.shedular.getThroughput()));
     }//GEN-LAST:event_nextButActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -423,9 +418,9 @@ public class SimulatorInterface extends javax.swing.JFrame {
              
              }
         }
-        this.schdular = new Schedular(list);
-        this.schdular.setpTime(pTime);
-        ReadyQueue ready = schdular.getReadyQueue();
+        this.shedular = new Schedular(list);
+        this.shedular.setpTime(pTime);
+        ReadyQueue ready = shedular.getReadyQueue();
         
         drawReadyQueue(ready);  
     }//GEN-LAST:event_conButActionPerformed
@@ -435,7 +430,7 @@ public class SimulatorInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void simButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simButActionPerformed
-        while(schdular.getReadyQueue().size()>0){
+        while(shedular.getReadyQueue().size()>0){
            
         }
     }//GEN-LAST:event_simButActionPerformed

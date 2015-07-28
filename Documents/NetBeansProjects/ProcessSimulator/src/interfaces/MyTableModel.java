@@ -1,17 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package interfaces;
 
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author Asus
- */
-public class MyTableModel extends AbstractTableModel {
+
+public class MyTableModel extends AbstractTableModel {//this claas is to define the data table to enter data
     private int rows;
     private int coloums = 3;
     
@@ -71,25 +65,19 @@ public class MyTableModel extends AbstractTableModel {
         return data[rowIndex][columnIndex];
     }
     
-    /*public Class getColumnClass(int columnIndex) {
-        return types [columnIndex];
-    }*/
+   
     public void setValueAt(Object value, int row, int col) {   
        try{
         data[row][col] = Integer.valueOf(String.valueOf(value));
        }catch(Exception ex){}
     }    
 
-    /**
-     * @param data the data to set
-     */
+    
     public void setData(Object[][] data) {
         this.data = data;
     }
 
-    /**
-     * @param coloums the coloums to set
-     */
+    
     public void setColoums(int coloums) {
         this.coloums = coloums;
     }
